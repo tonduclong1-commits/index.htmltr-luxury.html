@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Long Tea Luxury</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+overflow-x:hidden;
+}
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 60px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+position:sticky;top:0;z-index:100;
+}
+.logo{font-size:22px;font-weight:700;color:#ffd700}
+nav a{margin-left:25px;text-decoration:none;color:white;cursor:pointer}
+.badge{background:#ffd700;color:black;padding:3px 8px;border-radius:20px;font-size:12px;margin-left:5px}
+
+.page{display:none;padding:60px;animation:fade .4s}
+.active{display:block}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;margin-top:40px;
+}
+.card{
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(15px);
+border-radius:20px;
+overflow:hidden;
+transition:.4s;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+.card:hover{transform:translateY(-10px)}
+.card img{width:100%;height:200px;object-fit:cover}
+.card-content{padding:20px}
+.price{color:#ffd700;font-weight:600;margin:10px 0}
+.benefits{font-size:14px;line-height:1.6;color:#eee;margin:8px 0}
+
+button{
+background:#ffd700;border:none;padding:8px 15px;
+border-radius:20px;cursor:pointer;font-weight:600
+}
+button:hover{background:#ffea70}
+
+table{
+width:100%;background:white;color:black;
+border-radius:15px;overflow:hidden;
+border-collapse:collapse;margin-top:20px
+}
+th,td{padding:12px;border-bottom:1px solid #ddd;text-align:center}
+.qty-btn{
+background:#2c5364;color:white;
+padding:4px 10px;border-radius:5px;margin:0 5px;cursor:pointer
+}
+
+.payment-box{
+background:rgba(255,255,255,0.1);
+padding:20px;border-radius:15px;margin-top:20px
+}
+select{width:100%;padding:10px;border-radius:10px;margin-top:10px;border:none}
+
+.popup{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.6);display:none;
+justify-content:center;align-items:center
+}
+.popup-content{
+background:white;color:black;padding:40px;
+border-radius:20px;text-align:center
+}
+
+.chat-toggle{
+position:fixed;bottom:20px;right:20px;
+width:60px;height:60px;background:#ffd700;
+color:black;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;cursor:pointer
+}
+.chatbox{
+position:fixed;bottom:90px;right:20px;width:320px;
+background:white;color:black;border-radius:20px;
+display:none;flex-direction:column;
+box-shadow:0 10px 30px rgba(0,0,0,.4)
+}
+.chat-header{background:#2c5364;color:white;padding:12px}
+.chat-body{height:200px;overflow-y:auto;padding:10px}
+.chat-input{display:flex;border-top:1px solid #ddd}
+.chat-input input{flex:1;border:none;padding:10px}
+.chat-input button{border-radius:0}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">🍵 Long Tea Luxury</div>
+<nav>
+<a onclick="showPage('home')">Trang chủ</a>
+<a onclick="showPage('cart')">Giỏ hàng <span id="cartCount" class="badge">0</span></a>
+<a onclick="showPage('map')">Bản đồ</a>
+</nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page active">
+<h1>Trà cao cấp cho sức khỏe</h1>
+
+<div class="products">
+
+<div class="card">
+<img src="tra_1.png">
+<div class="card-content">
+<h3>Trà xanh</h3>
+<div class="benefits">
+✔ Thanh lọc cơ thể<br>
+✔ Giảm cân tự nhiên<br>
+✔ Chống oxy hóa cao<br>
+✔ Giúp da sáng khỏe
+</div>
+<p class="price">50.000đ</p>
+<button onclick="addToCart('Trà xanh',50000)">Thêm</button>
+</div>
+</div>
+
+<div class="card">
+<img src="tra_2.png">
+<div class="card-content">
+<h3>Trà đen</h3>
+<div class="benefits">
+✔ Tăng tỉnh táo<br>
+✔ Tốt cho tim mạch<br>
+✔ Giảm stress<br>
+✔ Hỗ trợ tiêu hóa
+</div>
+<p class="price">60.000đ</p>
+<button onclick="addToCart('Trà đen',60000)">Thêm</button>
+</div>
+</div>
+
+<div class="card">
+<img src="tra_3.png">
+<div class="card-content">
+<h3>Trà hoa</h3>
+<div class="benefits">
+✔ Thư giãn tinh thần<br>
+✔ Ngủ ngon hơn<br>
+✔ Làm đẹp da<br>
+✔ Giảm căng thẳng
+</div>
+<p class="price">65.000đ</p>
+<button onclick="addToCart('Trà hoa',65000)">Thêm</button>
+</div>
+</div>
+
+<div class="card">
+<img src="tra_4.png">
+<div class="card-content">
+<h3>Trà thảo mộc</h3>
+<div class="benefits">
+✔ Tăng đề kháng<br>
+✔ Thanh nhiệt giải độc<br>
+✔ Hỗ trợ gan<br>
+✔ Cải thiện hệ miễn dịch
+</div>
+<p class="price">70.000đ</p>
+<button onclick="addToCart('Trà thảo mộc',70000)">Thêm</button>
+</div>
+</div>
+
+</div>
+
+<div style="margin-top:60px;background:rgba(255,255,255,0.1);padding:40px;border-radius:20px;text-align:center;">
+<h2 style="color:#ffd700;margin-bottom:15px;">Long Tea Luxury</h2>
+<p>📞 Hotline: <b>0962582202</b></p>
+<p>
+<a href="https://www.facebook.com/share/17AnBLpuK3/?mibextid=wwXIfr" target="_blank" style="color:#ffd700;text-decoration:none;font-weight:600;">
+🌐 Facebook: Long Tea Luxury
+</a>
+</p>
+<p style="margin-top:20px;color:#ddd;">
+💚 Cảm ơn bạn đã tin tưởng và lựa chọn Long Tea Luxury.
+</p>
+</div>
+</section>
+
+<!-- CART -->
+<section id="cart" class="page">
+<h2>Giỏ hàng</h2>
+<table>
+<thead>
+<tr><th>Sản phẩm</th><th>Giá</th><th>SL</th><th>Tổng</th></tr>
+</thead>
+<tbody id="cartItems"></tbody>
+</table>
+<h3 id="totalPrice"></h3>
+
+<div class="payment-box">
+<h3>Phương thức thanh toán</h3>
+<select id="paymentMethod" onchange="showBankInfo()">
+<option value="cod">Thanh toán khi nhận hàng (COD)</option>
+<option value="bank">Chuyển khoản ngân hàng</option>
+</select>
+
+<div id="bankInfo" style="display:none;margin-top:15px;">
+<p><b>Ngân hàng:</b> Vietinbank</p>
+<p><b>Chủ tài khoản:</b> Long Tea Luxury</p>
+<p><b>Số tài khoản:</b> 088817888</p>
+</div>
+</div>
+
+<button style="margin-top:20px;" onclick="checkout()">Thanh toán</button>
+</section>
+
+<!-- MAP -->
+<section id="map" class="page">
+<h2>Vị trí cửa hàng</h2>
+<div id="mapContainer" style="margin-top:20px;">
+<button onclick="loadMap()" style="padding:12px 25px;border-radius:25px;background:#ffd700;font-weight:600;border:none;cursor:pointer;">
+📍 Xem bản đồ cửa hàng
+</button>
+</div>
+</section>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-content">
+<h2>🎉 Cảm ơn bạn đã đặt hàng!</h2>
+<button onclick="closePopup()">Đóng</button>
+</div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-toggle" onclick="toggleChat()">💬</div>
+
+<div class="chatbox" id="chatbox">
+<div class="chat-header">Long Tea hỗ trợ</div>
+<div class="chat-body" id="chatBody">
+<p>Xin chào 👋 Bạn cần con cặc gì ?</p>
+</div>
+<div class="chat-input">
+<input type="text" id="chatInput">
+<button onclick="sendMessage()">Gửi</button>
+</div>
+</div>
+
+<script>
+let cart=[];
+
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function addToCart(name,price){
+let item=cart.find(i=>i.name===name);
+if(item){item.qty++}else{cart.push({name,price,qty:1})}
+updateCart();
+}
+
+function updateCart(){
+let tbody=document.getElementById('cartItems');
+tbody.innerHTML='';
+let total=0;
+cart.forEach((item,index)=>{
+total+=item.price*item.qty;
+tbody.innerHTML+=`
+<tr>
+<td>${item.name}</td>
+<td>${item.price.toLocaleString()}đ</td>
+<td>
+<button class="qty-btn" onclick="changeQty(${index},-1)">-</button>
+${item.qty}
+<button class="qty-btn" onclick="changeQty(${index},1)">+</button>
+</td>
+<td>${(item.price*item.qty).toLocaleString()}đ</td>
+</tr>`;
+});
+document.getElementById('totalPrice').innerText="Tổng: "+total.toLocaleString()+"đ";
+document.getElementById('cartCount').innerText=cart.reduce((a,b)=>a+b.qty,0);
+}
+
+function changeQty(i,c){
+cart[i].qty+=c;
+if(cart[i].qty<=0)cart.splice(i,1);
+updateCart();
+}
+
+function showBankInfo(){
+let method=document.getElementById('paymentMethod').value;
+document.getElementById('bankInfo').style.display = method==='bank' ? 'block':'none';
+}
+
+function checkout(){
+if(cart.length===0){alert("Giỏ hàng trống!");return;}
+document.getElementById('popup').style.display='flex';
+cart=[];updateCart();
+}
+
+function closePopup(){
+document.getElementById('popup').style.display='none';
+}
+
+function toggleChat(){
+let box=document.getElementById('chatbox');
+box.style.display=box.style.display==='flex'?'none':'flex';
+}
+
+function sendMessage(){
+let input=document.getElementById('chatInput');
+let body=document.getElementById('chatBody');
+if(input.value.trim()==='')return;
+body.innerHTML+=`<p><b>Bạn:</b> ${input.value}</p>`;
+body.innerHTML+=`<p><b>Shop:</b> Cảm ơn bạn 💚</p>`;
+body.scrollTop=body.scrollHeight;
+input.value='';
+}
+
+function loadMap(){
+document.getElementById("mapContainer").innerHTML=`
+<iframe 
+src="https://www.google.com/maps?q=An%20Th%E1%BB%8D%2C%20Nga%20V%E1%BB%8Bnh%2C%20Nga%20S%C6%A1n%2C%20Thanh%20H%C3%B3a&hl=vi&z=15&output=embed"
+width="100%" height="400"
+style="border:none;border-radius:20px;margin-top:20px;"
+allowfullscreen="" loading="lazy">
+</iframe>`;
+}
+</script>
+
+</body>
+</html>
